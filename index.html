@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Basic Calculator version 2.0</title>
+
+    <style>
+        body {
+            background-image: url("https://i.pinimg.com/originals/88/e5/54/88e5540465d258ab1d271bfc11189533.gif");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .calc-card {
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 25px;
+            padding: 30px;
+            width: 400px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff4d4d;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        input {
+            background-color: #330000;
+            border: 1px solid #ff4d4d;
+            color: white;
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        input::placeholder {
+            color: #ff9999;
+        }
+
+        input:focus {
+            background-color: #330000;
+            color: white;
+            border-color: #ff1a1a;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        .btn-calc {
+            background: linear-gradient(135deg, #ff1a1a, #990000);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 12px;
+        }
+
+        .btn-calc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            background: linear-gradient(135deg, #ff3333, #bb0000);
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #ffcccc;
+            min-height: 40px;
+        }
+
+        kbd {
+            background-color: #330000;
+            border: 1px solid #ff4d4d;
+            border-radius: 10px;
+            padding: 8px 14px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        label {
+            color: #ffcccc;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calc-card">
+        <h1>Basic Calculator version 2.0</h1>
+
+        <form class="form-group">
+            <label>Enter 1st Number:</label>
+            <input type="number" id="num1" class="form-control mb-3" placeholder="Input any number 0 to 100" step="any">
+            
+            <label>Enter 2nd Number:</label>
+            <input type="number" id="num2" class="form-control mb-4" placeholder="Input any decimal number from 0 to 100" step="any">
+
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-calc" onclick="calculate('+')">Add (+)</button>
+                <button type="button" class="btn btn-calc" onclick="calculate('-')">Subtract (-)</button>
+                <button type="button" class="btn btn-calc" onclick="calculate('*')">Multiply (×)</button>
+                <button type="button" class="btn btn-calc" onclick="calculate('/')">Divide (÷)</button>
+                <button type="button" class="btn btn-calc" onclick="displayDifference()">Display Difference (Alert)</button>
+            </div>
+        </form>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculate(op) {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            let res;
+
+            if (isNaN(a) || isNaN(b)) {
+                window.alert('Please enter both numbers!');
+                return;
+            }
+
+            if (op === "+") {
+                res = a + b;
+                window.alert('Sum: ' + res);
+            }
+            if (op === "-") {
+                res = a - b;
+                window.alert('Difference: ' + res);
+            }
+            if (op === "*") {
+                res = a * b;
+                window.alert('Product: ' + res);
+            }
+            if (op === "/") {
+                if (b === 0) {
+                    window.alert('Cannot divide by zero');
+                    return;
+                }
+                res = a / b;
+                window.alert('Quotient: ' + res);
+            }
+            
+            document.getElementById("result").innerHTML = `<kbd>Last result: ${res}</kbd>`;
+        }
+
+        function displayDifference() {
+            let num_1 = parseFloat(document.getElementById("num1").value);
+            let num_2 = parseFloat(document.getElementById("num2").value);
+            
+            if (isNaN(num_1) || isNaN(num_2)) {
+                window.alert('Please enter both numbers!');
+                return;
+            }
+            
+            let diff = num_2 - num_1;
+            window.alert('The difference of two numbers is: ' + diff);
+            document.getElementById("result").innerHTML = `<kbd>Difference: ${diff}</kbd>`;
+        }
+    </script>
+</body>
+</html>
